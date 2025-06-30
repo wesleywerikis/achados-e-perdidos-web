@@ -1,0 +1,36 @@
+  form {
+  background: white;
+  padding: 2rem;
+  border-radius: 6px;
+  box-shadow: 0 0 10px #ccc;
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+form label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+form input[type="text"],
+form textarea,
+form select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+form button {
+  background: #2a9d8f;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #21867a;
+}
