@@ -1,10 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // ⚠️ Renderizar o menu
+  const nav = document.getElementById("menuNavegacao");
+  const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+  if (usuarioLogado && nav) {
+    nav.innerHTML = `
+      <a href="index.html" style="color: white; margin-right: 1rem;">Início</a>
+      <img src="https://www.gravatar.com/avatar?d=mp" width="30" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;">
+      <span style="color: white; margin-right: 1rem;">${usuarioLogado.email}</span>
+      <button onclick="logout()" style="padding: 5px 10px;">Sair</button>
+    `;
+  }
+
+  function logout() {
+    localStorage.removeItem("usuarioLogado");
+    window.location.href = "login.html";
+  }
+
+  // 🎯 Formulário de cadastro de anúncio
   const form = document.getElementById("form-anuncio");
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    // Pegando os dados do formulário
     const formData = new FormData(form);
     const anuncio = {
       titulo: formData.get("titulo"),
@@ -13,17 +31,12 @@ document.addEventListener("DOMContentLoaded", () => {
       local: formData.get("local"),
     };
 
-    // Pegando anúncios salvos no localStorage
     const anunciosStr = localStorage.getItem("anuncios");
     const anuncios = anunciosStr ? JSON.parse(anunciosStr) : [];
 
-    // Adicionando novo anúncio
     anuncios.push(anuncio);
-
-    // Salvando novamente no localStorage
     localStorage.setItem("anuncios", JSON.stringify(anuncios));
 
-    // Redireciona para a página inicial
     window.location.href = "index.html";
   });
 });
