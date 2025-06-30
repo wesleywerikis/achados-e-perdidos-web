@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro - Perdidos & Achados</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Cadastro de Usuário</h1>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <form id="formCadastro" class="formulario">
+      <label for="nome">Nome completo:</label>
+      <input type="text" id="nome" required />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" required />
+
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" required minlength="6" />
+
+      <label for="confirmarSenha">Confirmar senha:</label>
+      <input type="password" id="confirmarSenha" required />
+
+      <button type="submit">Cadastrar</button>
+    </form>
+
+    <p id="mensagemCadastro" class="mensagem" style="color: green; margin-top: 10px;"></p>
+  </main>
+
+  <script src="js/cadastro.js"></script>
+</body>
+</html>
