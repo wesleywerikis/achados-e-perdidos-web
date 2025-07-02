@@ -1,0 +1,38 @@
+<!-- editar-anuncio.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Editar Anúncio</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header><h1>Editar Anúncio</h1></header>
+  <main>
+    <form id="formEditar">
+      <input type="hidden" id="anuncioId">
+      
+      <label>Título:</label>
+      <input type="text" id="titulo" required>
+
+      <label>Descrição:</label>
+      <textarea id="descricao" required></textarea>
+
+      <label>Categoria:</label>
+      <select id="categoria" required>
+        <option value="Documento">Documento</option>
+        <option value="Eletrônico">Eletrônico</option>
+        <option value="Animal">Animal</option>
+        <option value="Outro">Outro</option>
+      </select>
+
+      <label>Local:</label>
+      <input type="text" id="local" required>
+
+      <button type="submit">Salvar Alterações</button>
+    </form>
+  </main>
+
+  <script src="js/editar.js"></script>
+</body>
+</html>
