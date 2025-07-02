@@ -24,7 +24,9 @@ nav a {
   text-decoration: none;
 }
 
-form {
+/* Formulários gerais (inclui login, cadastro, novo, editar) */
+form,
+.formulario {
   background: white;
   padding: 2rem;
   border-radius: 6px;
@@ -35,14 +37,20 @@ form {
   flex-direction: column;
 }
 
-form label {
+form label,
+.formulario label {
   margin-bottom: 0.5rem;
   font-weight: bold;
 }
 
 form input[type="text"],
+form input[type="email"],
+form input[type="password"],
 form textarea,
-form select {
+form select,
+.formulario input,
+.formulario textarea,
+.formulario select {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid #aaa;
@@ -50,7 +58,8 @@ form select {
   margin-bottom: 1.5rem;
 }
 
-form button {
+form button,
+.formulario button {
   background: #2a9d8f;
   color: white;
   border: none;
@@ -60,8 +69,18 @@ form button {
   align-self: flex-end;
 }
 
-form button:hover {
+form button:hover,
+.formulario button:hover {
   background: #21867a;
+}
+
+/* Mensagens */
+.mensagem {
+  text-align: center;
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 14px;
+  color: red;
 }
 
 .anuncio {
