@@ -29,7 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
       descricao: formData.get("descricao"),
       categoria: formData.get("categoria"),
       local: formData.get("local"),
+      dono: usuarioLogado.email, 
+      id: Date.now(), 
     };
+    
 
     const anunciosStr = localStorage.getItem("anuncios");
     const anuncios = anunciosStr ? JSON.parse(anunciosStr) : [];
