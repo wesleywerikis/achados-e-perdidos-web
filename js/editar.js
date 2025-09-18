@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const anuncio = anuncios.find(a => a.id === id);
     if (!anuncio) {
       alert("Anúncio não encontrado.");
-      window.location.href = "index.html";
+      window.location.href = "../index.html";
       return;
     }
   
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
       anuncios[index] = anuncio;
   
       localStorage.setItem("anuncios", JSON.stringify(anuncios));
-      window.location.href = "index.html";
+      window.location.href = "../index.html";
     });
   });
   

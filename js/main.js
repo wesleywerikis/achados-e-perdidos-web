@@ -34,16 +34,16 @@ if (lista) {
     nav.innerHTML = `
           <img src="https://www.gravatar.com/avatar?d=mp" width="30" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;">
           <span style="color: white; margin-right: 1rem;">${usuarioLogado.email}</span>
-          <a href="novo-anuncio.html" style="color: white; margin-right: 1rem;">Novo Anúncio</a>
+          <a href="pages/novo-anuncio.html" style="color: white; margin-right: 1rem;">Novo Anúncio</a>
           <button onclick="logout()" style="padding: 5px 10px;">Sair</button>
         `;
   }
   else {
     // Mostra links padrão
     nav.innerHTML = `
-    <a href="login.html">Login</a>
-    <a href="cadastro.html">Cadastrar-se</a>
-    <a href="novo-anuncio.html">Novo Anúncio</a>
+    <a href="pages/login.html">Login</a>
+    <a href="pages/cadastro.html">Cadastrar-se</a>
+    <a href="pages/novo-anuncio.html">Novo Anúncio</a>
   `;
   }
 }
@@ -62,6 +62,6 @@ function logout() {
 }
 
 function editarAnuncio(id) {
-  window.location.href = `editar-anuncio.html?id=${id}`;
+  window.location.href = `pages/editar-anuncio.html?id=${id}`;
 }
 

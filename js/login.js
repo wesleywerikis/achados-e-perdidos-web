@@ -21,7 +21,7 @@ formLogin.addEventListener("submit", function (e) {
     localStorage.setItem("usuarioLogado", JSON.stringify(usuarioValido));
 
     setTimeout(() => {
-      window.location.href = "index.html"; // redireciona para página inicial
+      window.location.href = "../index.html"; // redireciona para página inicial
     }, 1500);
   } else {
     msgLogin.style.color = "red";

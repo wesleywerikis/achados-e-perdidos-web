@@ -40,6 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
     anuncios.push(anuncio);
     localStorage.setItem("anuncios", JSON.stringify(anuncios));
 
-    window.location.href = "index.html";
+    window.location.href = "../index.html";
   });
 });
