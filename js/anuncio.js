@@ -1,26 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ⚠️ Renderizar o menu
   const nav = document.getElementById("menuNavegacao");
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
 
-  if (usuarioLogado && nav) {
+  if (!usuarioLogado) {
+    alert("Você precisa estar logado para acessar esta página.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  if (nav) {
     nav.innerHTML = `
-      <a href="index.html" style="color: white; margin-right: 1rem;">Início</a>
+      <a href="../index.html" style="color: white; margin-right: 1rem;">Início</a>
       <img src="https://www.gravatar.com/avatar?d=mp" width="30" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;">
       <span style="color: white; margin-right: 1rem;">${usuarioLogado.email}</span>
       <button onclick="logout()" style="padding: 5px 10px;">Sair</button>
     `;
   }
 
-  function logout() {
+  window.logout = function () {
     localStorage.removeItem("usuarioLogado");
     window.location.href = "login.html";
-  }
+  };
 
-  // 🎯 Formulário de cadastro de anúncio
   const form = document.getElementById("form-anuncio");
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const formData = new FormData(form);
@@ -29,17 +33,29 @@ document.addEventListener("DOMContentLoaded", () => {
       descricao: formData.get("descricao"),
       categoria: formData.get("categoria"),
       local: formData.get("local"),
-      dono: usuarioLogado.email, 
-      id: Date.now(), 
+      donoEmail: usuarioLogado.email,
     };
-    
 
-    const anunciosStr = localStorage.getItem("anuncios");
-    const anuncios = anunciosStr ? JSON.parse(anunciosStr) : [];
+    try {
+      const resp = await fetch("/api/anuncios", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(anuncio),
+      });
 
-    anuncios.push(anuncio);
-    localStorage.setItem("anuncios", JSON.stringify(anuncios));
+      const dados = await resp.json();
 
-    window.location.href = "../index.html";
+      if (!resp.ok) {
+        alert(dados.erro || "Erro ao cadastrar anúncio.");
+        return;
+      }
+
+      window.location.href = "../index.html";
+    } catch (err) {
+      console.error(err);
+      alert("Erro de conexão com o servidor.");
+    }
   });
 });
