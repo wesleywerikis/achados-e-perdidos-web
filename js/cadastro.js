@@ -1,7 +1,7 @@
 const form = document.getElementById("formCadastro");
 const msg = document.getElementById("mensagemCadastro");
 
-form.addEventListener("submit", function (e) {
+form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
   const nome = document.getElementById("nome").value.trim();
@@ -15,24 +15,30 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
-  // Recupera usuários existentes ou inicia lista
-  let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+  try {
+    const resp = await fetch("/api/usuarios", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ nome, email, senha }),
+    });
 
-  // Verifica se o e-mail já foi cadastrado
-  const existe = usuarios.some((u) => u.email === email);
-  if (existe) {
+    const dados = await resp.json();
+
+    if (!resp.ok) {
+      msg.style.color = "red";
+      msg.textContent = dados.erro || "Erro ao cadastrar.";
+      return;
+    }
+
+    msg.style.color = "green";
+    msg.textContent = dados.mensagem || "Cadastro realizado com sucesso!";
+
+    form.reset();
+  } catch (err) {
+    console.error(err);
     msg.style.color = "red";
-    msg.textContent = "Este e-mail já está cadastrado.";
-    return;
+    msg.textContent = "Erro de conexão com o servidor.";
   }
-
-  // Adiciona novo usuário
-  const novoUsuario = { nome, email, senha };
-  usuarios.push(novoUsuario);
-  localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-  msg.style.color = "green";
-  msg.textContent = "Cadastro realizado com sucesso!";
-
-  form.reset();
 });
