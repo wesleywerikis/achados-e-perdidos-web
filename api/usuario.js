@@ -1,5 +1,4 @@
-// api/usuarios.js
-import { Client } from "pg";
+const { Client } = require("pg");
 
 function getConnectionString() {
   const url =
@@ -15,26 +14,47 @@ function getConnectionString() {
   return url;
 }
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   if (req.method === "OPTIONS") {
-    return res.status(200).end();
+    res.statusCode = 200;
+    return res.end();
   }
 
   if (req.method !== "POST") {
-    return res.status(405).json({ erro: "Método não permitido" });
+    res.statusCode = 405;
+    res.setHeader("Content-Type", "application/json");
+    return res.end(JSON.stringify({ erro: "Método não permitido" }));
   }
 
   try {
-    const { nome, email, senha } = req.body || {};
+    let body = "";
+    await new Promise((resolve, reject) => {
+      req.on("data", (chunk) => {
+        body += chunk;
+      });
+      req.on("end", resolve);
+      req.on("error", reject);
+    });
+
+    let parsed = {};
+    try {
+      parsed = JSON.parse(body || "{}");
+    } catch (e) {
+      console.error("Erro ao fazer parse do JSON:", e);
+    }
+
+    const { nome, email, senha } = parsed;
 
     if (!nome || !email || !senha) {
-      return res
-        .status(400)
-        .json({ erro: "Nome, e-mail e senha são obrigatórios." });
+      res.statusCode = 400;
+      res.setHeader("Content-Type", "application/json");
+      return res.end(
+        JSON.stringify({ erro: "Nome, e-mail e senha são obrigatórios." })
+      );
     }
 
     const client = new Client({
@@ -50,9 +70,11 @@ export default async function handler(req, res) {
 
     if (jaExiste.rowCount > 0) {
       await client.end();
-      return res
-        .status(400)
-        .json({ erro: "Este e-mail já está cadastrado." });
+      res.statusCode = 400;
+      res.setHeader("Content-Type", "application/json");
+      return res.end(
+        JSON.stringify({ erro: "Este e-mail já está cadastrado." })
+      );
     }
 
     const resultado = await client.query(
@@ -64,15 +86,23 @@ export default async function handler(req, res) {
 
     await client.end();
 
-    return res.status(201).json({
-      mensagem: "Cadastro realizado com sucesso!",
-      usuario: resultado.rows[0],
-    });
+    res.statusCode = 201;
+    res.setHeader("Content-Type", "application/json");
+    return res.end(
+      JSON.stringify({
+        mensagem: "Cadastro realizado com sucesso!",
+        usuario: resultado.rows[0],
+      })
+    );
   } catch (err) {
     console.error("ERRO AO CADASTRAR USUÁRIO:", err);
-    return res.status(500).json({
-      erro: "Erro interno ao cadastrar usuário.",
-      detalhe: err.message,
-    });
+    res.statusCode = 500;
+    res.setHeader("Content-Type", "application/json");
+    return res.end(
+      JSON.stringify({
+        erro: "Erro interno ao cadastrar usuário.",
+        detalhe: err.message,
+      })
+    );
   }
-}
+};
