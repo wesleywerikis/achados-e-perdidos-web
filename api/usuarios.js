@@ -1,3 +1,4 @@
+// api/usuarios.js
 const { Client } = require("pg");
 
 function getConnectionString() {
@@ -15,6 +16,7 @@ function getConnectionString() {
 }
 
 module.exports = async (req, res) => {
+  // CORS simples
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -101,7 +103,7 @@ module.exports = async (req, res) => {
     return res.end(
       JSON.stringify({
         erro: "Erro interno ao cadastrar usuário.",
-        detalhe: err.message,
+        detalhe: err.message
       })
     );
   }
