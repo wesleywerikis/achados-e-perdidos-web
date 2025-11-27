@@ -1,11 +1,18 @@
+// api/usuarios.js
 import { Client } from "pg";
 
-async function getClient() {
-  const client = new Client({
-    connectionString: process.env.POSTGRES_URL,
-  });
-  await client.connect();
-  return client;
+function getConnectionString() {
+  const url =
+    process.env.POSTGRES_URL ||
+    process.env.POSTGRES_PRISMA_URL ||
+    process.env.POSTGRES_URL_NON_POOLING;
+
+  if (!url) {
+    console.error("ERRO: Nenhuma variável POSTGRES_ encontrada.");
+    throw new Error("Variável de ambiente POSTGRES_URL não configurada.");
+  }
+
+  return url;
 }
 
 export default async function handler(req, res) {
@@ -22,25 +29,30 @@ export default async function handler(req, res) {
   }
 
   try {
-    let body = "";
-    for await (const chunk of req) {
-      body += chunk;
-    }
-    const { nome, email, senha } = JSON.parse(body || "{}");
+    const { nome, email, senha } = req.body || {};
 
     if (!nome || !email || !senha) {
-      return res.status(400).json({ erro: "Dados obrigatórios faltando" });
+      return res
+        .status(400)
+        .json({ erro: "Nome, e-mail e senha são obrigatórios." });
     }
 
-    const client = await getClient();
+    const client = new Client({
+      connectionString: getConnectionString(),
+    });
+
+    await client.connect();
 
     const jaExiste = await client.query(
       "SELECT 1 FROM usuarios WHERE email = $1",
       [email]
     );
+
     if (jaExiste.rowCount > 0) {
       await client.end();
-      return res.status(400).json({ erro: "Este e-mail já está cadastrado." });
+      return res
+        .status(400)
+        .json({ erro: "Este e-mail já está cadastrado." });
     }
 
     const resultado = await client.query(
@@ -57,7 +69,10 @@ export default async function handler(req, res) {
       usuario: resultado.rows[0],
     });
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ erro: "Erro interno ao cadastrar usuário" });
+    console.error("ERRO AO CADASTRAR USUÁRIO:", err);
+    return res.status(500).json({
+      erro: "Erro interno ao cadastrar usuário.",
+      detalhe: err.message,
+    });
   }
 }
