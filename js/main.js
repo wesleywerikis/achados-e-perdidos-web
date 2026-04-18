@@ -52,7 +52,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       div.className = "anuncio";
 
       let botoes = "";
-      if (usuarioLogado && usuarioLogado.email === anuncio.dono) {
+      if (
+  usuarioLogado &&
+  (usuarioLogado.email === anuncio.donoEmail ||
+   usuarioLogado.email === anuncio.dono)
+) {
         botoes = `
           <button onclick="editarAnuncio(${anuncio.id})">Editar</button>
           <button onclick="excluirAnuncio(${anuncio.id})">Excluir</button>
