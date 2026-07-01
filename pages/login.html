@@ -7,28 +7,70 @@
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-  <header>
-    <h1>Login</h1>
-    <nav>
-      <a href="../index.html">Início</a>
-      <a href="cadastro.html">Cadastrar-se</a>
-    </nav>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="../index.html" class="site-brand" id="linkLogo">
+        <svg class="site-brand-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+        <span class="site-brand-text">Perdidos <span class="brand-amp">&</span> Achados</span>
+      </a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <nav id="menuNavegacao" class="site-nav" aria-label="Menu principal"></nav>
+    </div>
   </header>
 
-  <main>
-    <form id="formLogin" class="formulario">
-      <label for="email">Email:</label>
-      <input type="email" id="email" required />
+  <main class="pagina-auth">
+    <div class="auth-cabecalho">
+      <h2>Entrar na conta</h2>
+      <p class="auth-subtitulo">Acesse para publicar e gerenciar seus anúncios.</p>
+    </div>
 
-      <label for="senha">Senha:</label>
-      <input type="password" id="senha" required />
+    <form id="formLogin" class="formulario formulario-auth" novalidate>
+      <div class="campo-grupo">
+        <label for="email">E-mail</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="seu@email.com"
+          autocomplete="email"
+          required
+        />
+      </div>
 
-      <button type="submit">Entrar</button>
+      <div class="campo-grupo">
+        <label for="senha">Senha</label>
+        <div class="campo-senha">
+          <input
+            type="password"
+            id="senha"
+            name="senha"
+            placeholder="Digite sua senha"
+            autocomplete="current-password"
+            required
+          />
+          <button type="button" class="btn-toggle-senha" data-toggle-senha="senha" aria-label="Mostrar senha"></button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primario">Entrar</button>
+
+      <p class="form-rodape">
+        Não tem conta?
+        <a href="cadastro.html">Cadastre-se gratuitamente</a>
+      </p>
     </form>
-
-    <p id="mensagemLogin" class="mensagem" style="margin-top: 10px;"></p>
   </main>
 
+  <script src="../js/ui.js"></script>
   <script src="../js/login.js"></script>
 </body>
 </html>

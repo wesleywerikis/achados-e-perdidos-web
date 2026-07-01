@@ -1,53 +1,70 @@
-const formLogin = document.getElementById("formLogin");
-const msgLogin = document.getElementById("mensagemLogin");
+document.addEventListener("DOMContentLoaded", () => {
+  const nav = document.getElementById("menuNavegacao");
+  const formLogin = document.getElementById("formLogin");
+  const usuarioLogado = obterUsuarioLogado();
 
-formLogin.addEventListener("submit", async function (e) {
-  e.preventDefault();
+  inicializarSiteHeader({ prefixo: "../" });
+  renderizarNav(nav, usuarioLogado, { prefixo: "../", paginaAtual: "login" });
+  configurarLogout("../index.html");
+  configurarToggleSenha();
 
-  const email = document.getElementById("email").value.trim();
-  const senha = document.getElementById("senha").value;
+  if (usuarioLogado) {
+    mostrarToast("Você já está logado. Redirecionando...", "info");
+    setTimeout(() => {
+      window.location.href = "../index.html";
+    }, 1000);
+    return;
+  }
 
-  msgLogin.textContent = "";
-  msgLogin.style.color = "inherit";
+  formLogin.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  try {
-    const resp = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, senha }),
-    });
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value;
+    const btnSubmit = formLogin.querySelector('button[type="submit"]');
 
-    let dados = {};
-    try {
-      dados = await resp.json();
-    } catch (e) {
-      console.error("Falha ao ler JSON da resposta:", e);
-    }
-
-    if (!resp.ok) {
-      msgLogin.style.color = "red";
-      msgLogin.textContent =
-        dados.erro ||
-        `Falha no login. Status: ${resp.status} ${resp.statusText}`;
+    if (!email || !senha) {
+      mostrarToast("Preencha e-mail e senha.", "erro");
       return;
     }
 
-    if (dados.usuario) {
-      localStorage.setItem("usuarioLogado", JSON.stringify(dados.usuario));
+    setBotaoCarregando(btnSubmit, true, "Entrando...");
+
+    try {
+      const resp = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha }),
+      });
+
+      let dados = {};
+      try {
+        dados = await resp.json();
+      } catch (err) {
+        console.error("Falha ao ler JSON da resposta:", err);
+      }
+
+      if (!resp.ok) {
+        mostrarToast(
+          dados.erro || `Falha no login. Status: ${resp.status}`,
+          "erro"
+        );
+        setBotaoCarregando(btnSubmit, false, "Entrar");
+        return;
+      }
+
+      if (dados.usuario) {
+        localStorage.setItem("usuarioLogado", JSON.stringify(dados.usuario));
+      }
+
+      mostrarToast("Login realizado com sucesso!", "sucesso");
+      setTimeout(() => {
+        window.location.href = "../index.html";
+      }, 800);
+    } catch (err) {
+      console.error(err);
+      mostrarToast("Erro de conexão com o servidor.", "erro");
+      setBotaoCarregando(btnSubmit, false, "Entrar");
     }
-
-    msgLogin.style.color = "green";
-    msgLogin.textContent =
-      dados.mensagem || "Login realizado com sucesso! Redirecionando...";
-
-    setTimeout(() => {
-      window.location.href = "../index.html";
-    }, 1500);
-  } catch (err) {
-    console.error(err);
-    msgLogin.style.color = "red";
-    msgLogin.textContent = "Erro de conexão com o servidor.";
-  }
+  });
 });

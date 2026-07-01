@@ -7,34 +7,99 @@
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-  <header>
-    <h1>Cadastro de Usuário</h1>
-    <nav>
-      <a href="../index.html">Início</a>
-      <a href="login.html">Login</a>
-    </nav>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="../index.html" class="site-brand" id="linkLogo">
+        <svg class="site-brand-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+        <span class="site-brand-text">Perdidos <span class="brand-amp">&</span> Achados</span>
+      </a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <nav id="menuNavegacao" class="site-nav" aria-label="Menu principal"></nav>
+    </div>
   </header>
 
-  <main>
-    <form id="formCadastro" class="formulario">
-      <label for="nome">Nome completo:</label>
-      <input type="text" id="nome" required />
+  <main class="pagina-auth">
+    <div class="auth-cabecalho">
+      <h2>Criar conta</h2>
+      <p class="auth-subtitulo">Cadastre-se para publicar anúncios de perdidos e achados.</p>
+    </div>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" required />
+    <form id="formCadastro" class="formulario formulario-auth" novalidate>
+      <div class="campo-grupo">
+        <label for="nome">Nome completo</label>
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          placeholder="Seu nome"
+          autocomplete="name"
+          required
+        />
+      </div>
 
-      <label for="senha">Senha:</label>
-      <input type="password" id="senha" required minlength="6" />
+      <div class="campo-grupo">
+        <label for="email">E-mail</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="seu@email.com"
+          autocomplete="email"
+          required
+        />
+      </div>
 
-      <label for="confirmarSenha">Confirmar senha:</label>
-      <input type="password" id="confirmarSenha" required />
+      <div class="campo-grupo">
+        <label for="senha">Senha</label>
+        <div class="campo-senha">
+          <input
+            type="password"
+            id="senha"
+            name="senha"
+            placeholder="Mínimo 6 caracteres"
+            autocomplete="new-password"
+            minlength="6"
+            required
+          />
+          <button type="button" class="btn-toggle-senha" data-toggle-senha="senha" aria-label="Mostrar senha"></button>
+        </div>
+        <span class="campo-dica">Use pelo menos 6 caracteres.</span>
+      </div>
 
-      <button type="submit">Cadastrar</button>
+      <div class="campo-grupo">
+        <label for="confirmarSenha">Confirmar senha</label>
+        <div class="campo-senha">
+          <input
+            type="password"
+            id="confirmarSenha"
+            name="confirmarSenha"
+            placeholder="Repita a senha"
+            autocomplete="new-password"
+            required
+          />
+          <button type="button" class="btn-toggle-senha" data-toggle-senha="confirmarSenha" aria-label="Mostrar senha"></button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primario">Cadastrar</button>
+
+      <p class="form-rodape">
+        Já tem conta?
+        <a href="login.html">Fazer login</a>
+      </p>
     </form>
-
-    <p id="mensagemCadastro" class="mensagem" style="color: green; margin-top: 10px;"></p>
   </main>
 
+  <script src="../js/ui.js"></script>
   <script src="../js/cadastro.js"></script>
 </body>
 </html>

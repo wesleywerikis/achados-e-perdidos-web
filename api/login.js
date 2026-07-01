@@ -1,18 +1,4 @@
-const { Client } = require("pg");
-
-function getConnectionString() {
-  const url =
-    process.env.POSTGRES_URL ||
-    process.env.POSTGRES_PRISMA_URL ||
-    process.env.POSTGRES_URL_NON_POOLING;
-
-  if (!url) {
-    console.error("ERRO: Nenhuma variável POSTGRES_ encontrada.");
-    throw new Error("Variável de ambiente POSTGRES_URL não configurada.");
-  }
-
-  return url;
-}
+const { getClient } = require("./db");
 
 module.exports = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -57,11 +43,7 @@ module.exports = async (req, res) => {
       );
     }
 
-    const client = new Client({
-      connectionString: getConnectionString(),
-    });
-
-    await client.connect();
+    const client = await getClient();
 
     const result = await client.query(
       `SELECT id, nome, email 

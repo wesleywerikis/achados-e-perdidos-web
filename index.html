@@ -7,11 +7,24 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header>
-    <h1>Perdidos & Achados</h1>
-    <nav id="menuNavegacao">
-      <!-- O JavaScript vai preencher esse conteúdo com base no login -->
-    </nav>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="site-brand" id="linkLogo">
+        <svg class="site-brand-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+        <span class="site-brand-text">Perdidos <span class="brand-amp">&</span> Achados</span>
+      </a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <nav id="menuNavegacao" class="site-nav" aria-label="Menu principal"></nav>
+    </div>
   </header>
 
   <main>
@@ -21,6 +34,7 @@
     </div>
   </main>
 
+  <script src="js/ui.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
