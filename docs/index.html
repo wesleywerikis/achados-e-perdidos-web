@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Perdidos & Achados — Sistema web para divulgação de objetos perdidos e encontrados. Projeto de extensão ADS." />
+  <title>Perdidos & Achados — Projeto</title>
+  <style>
+    :root {
+      --primary: #2a9d8f;
+      --primary-dark: #21867a;
+      --bg: #f7f7f7;
+      --card: #ffffff;
+      --text: #333;
+      --muted: #666;
+      --border: #e0e0e0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+    header p { opacity: 0.95; max-width: 600px; margin: 0 auto; }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+    .btn-primary {
+      background: white;
+      color: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 2px solid white;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+    }
+
+    section {
+      background: var(--card);
+      border-radius: 8px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    section h2 {
+      color: var(--primary-dark);
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    ul { padding-left: 1.25rem; }
+    li { margin-bottom: 0.4rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .card-mini {
+      background: var(--bg);
+      padding: 1rem;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .card-mini strong { display: block; color: var(--primary-dark); margin-bottom: 0.25rem; }
+
+    .links-list a {
+      color: var(--primary);
+      word-break: break-all;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Perdidos & Achados</h1>
+    <p>Sistema web para ajudar pessoas a divulgar e encontrar objetos perdidos ou achados.</p>
+    <div class="cta-group">
+      <a class="btn btn-primary" href="https://achados-e-perdidos-web.vercel.app" target="_blank" rel="noopener">
+        Acessar aplicação online
+      </a>
+      <a class="btn btn-secondary" href="https://github.com/wesleywerikis/achados-e-perdidos-web" target="_blank" rel="noopener">
+        Ver código no GitHub
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h2>Sobre o projeto</h2>
+      <p>
+        Este projeto foi desenvolvido como parte do curso de <strong>Análise e Desenvolvimento de Sistemas</strong>,
+        em formato de projeto de extensão. A plataforma conecta quem perdeu um item a quem o encontrou,
+        por meio de anúncios organizados por categoria e local.
+      </p>
+    </section>
+
+    <section>
+      <h2>Funcionalidades</h2>
+      <ul>
+        <li>Cadastro e login de usuários</li>
+        <li>Publicação de anúncios de itens perdidos ou achados</li>
+        <li>Listagem pública dos anúncios mais recentes</li>
+        <li>Edição e exclusão apenas pelo dono do anúncio</li>
+        <li>Categorias: Documento, Eletrônico, Animal e Outro</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Diferenciais técnicos</h2>
+      <div class="grid">
+        <div class="card-mini">
+          <strong>Serverless</strong>
+          API em funções Node.js na Vercel
+        </div>
+        <div class="card-mini">
+          <strong>PostgreSQL</strong>
+          Banco relacional na nuvem
+        </div>
+        <div class="card-mini">
+          <strong>Frontend leve</strong>
+          HTML, CSS e JavaScript vanilla
+        </div>
+        <div class="card-mini">
+          <strong>Deploy automático</strong>
+          Integração GitHub + Vercel
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Stack tecnológica</h2>
+      <ul>
+        <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript (ES6+)</li>
+        <li><strong>Backend:</strong> Node.js — Vercel Serverless Functions</li>
+        <li><strong>Banco de dados:</strong> PostgreSQL</li>
+        <li><strong>Hospedagem da app:</strong> Vercel</li>
+        <li><strong>Documentação:</strong> GitHub Pages + README</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Links importantes</h2>
+      <ul class="links-list">
+        <li>
+          <strong>Aplicação:</strong>
+          <a href="https://achados-e-perdidos-web.vercel.app" target="_blank" rel="noopener">
+            https://achados-e-perdidos-web.vercel.app
+          </a>
+        </li>
+        <li>
+          <strong>Repositório:</strong>
+          <a href="https://github.com/wesleywerikis/achados-e-perdidos-web" target="_blank" rel="noopener">
+            github.com/wesleywerikis/achados-e-perdidos-web
+          </a>
+        </li>
+        <li>
+          <strong>Documentação técnica:</strong>
+          <a href="https://github.com/wesleywerikis/achados-e-perdidos-web#readme" target="_blank" rel="noopener">
+            README.md no GitHub
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Como usar</h2>
+      <ol>
+        <li>Acesse a aplicação pelo botão acima.</li>
+        <li>Crie uma conta em <em>Cadastrar-se</em> ou faça login.</li>
+        <li>Clique em <em>Novo Anúncio</em> para publicar um item.</li>
+        <li>Na página inicial, visualize todos os anúncios cadastrados.</li>
+        <li>Se o anúncio for seu, use os botões <em>Editar</em> ou <em>Excluir</em>.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    Projeto de extensão — Análise e Desenvolvimento de Sistemas &copy; 2026
+  </footer>
+</body>
+</html>
