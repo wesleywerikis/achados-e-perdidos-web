@@ -4,65 +4,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Novo Anúncio</title>
+  <title>Novo Anúncio - Perdidos & Achados</title>
   <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/anuncio.css">
-
-  <script>
-    const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
-    if (!usuarioLogado) {
-      alert("Você precisa estar logado para acessar esta página.");
-      window.location.href = "login.html";
-    }
-  </script>
 </head>
 
 <body>
-  <header>
-    <h1>Perdidos & Achados</h1>
-    <nav id="menuNavegacao">
-      <!-- Será preenchido dinamicamente via JS -->
-    </nav>    
+  <header class="site-header">
+    <div class="header-container">
+      <a href="../index.html" class="site-brand" id="linkLogo">
+        <svg class="site-brand-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+        <span class="site-brand-text">Perdidos <span class="brand-amp">&</span> Achados</span>
+      </a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <nav id="menuNavegacao" class="site-nav" aria-label="Menu principal"></nav>
+    </div>
   </header>
 
-  <main>
-    <h2>Novo Anúncio</h2>
+  <main class="pagina-formulario">
+    <div class="form-cabecalho">
+      <h2>Novo Anúncio</h2>
+      <p class="form-subtitulo">Descreva o item perdido ou encontrado com o máximo de detalhes.</p>
+    </div>
 
-    <form id="form-anuncio">
-      <label>
-        Título:
-        <input type="text" name="titulo" required>
-      </label>
-      <br><br>
+    <form id="form-anuncio" class="formulario" novalidate>
+      <div class="campo-grupo">
+        <label for="titulo">Título</label>
+        <input
+          type="text"
+          id="titulo"
+          name="titulo"
+          placeholder="Ex.: Carteira de motorista encontrada"
+          maxlength="120"
+          required
+        />
+      </div>
 
-      <label>
-        Descrição:
-        <textarea name="descricao" required></textarea>
-      </label>
-      <br><br>
+      <div class="campo-grupo">
+        <label for="descricao">Descrição</label>
+        <textarea
+          id="descricao"
+          name="descricao"
+          rows="4"
+          placeholder="Cor, marca, conteúdo, horário aproximado..."
+          required
+        ></textarea>
+      </div>
 
-      <label>
-        Categoria:
-        <select name="categoria" required>
-          <option value="">Selecione</option>
+      <div class="campo-grupo">
+        <label for="categoria">Categoria</label>
+        <select id="categoria" name="categoria" required>
+          <option value="">Selecione uma categoria</option>
           <option value="Documento">Documento</option>
           <option value="Eletrônico">Eletrônico</option>
           <option value="Animal">Animal</option>
           <option value="Outro">Outro</option>
         </select>
-      </label>
-      <br><br>
+      </div>
 
-      <label>
-        Local:
-        <input type="text" name="local" required>
-      </label>
-      <br><br>
+      <div class="campo-grupo">
+        <label for="local">Local</label>
+        <input
+          type="text"
+          id="local"
+          name="local"
+          placeholder="Ex.: Biblioteca, 2º andar"
+          required
+        />
+      </div>
 
-      <button type="submit">Cadastrar Anúncio</button>
+      <div class="form-acoes">
+        <a href="../index.html" class="btn-secundario-link">Cancelar</a>
+        <button type="submit" class="btn-primario">Cadastrar Anúncio</button>
+      </div>
     </form>
   </main>
 
+  <script src="../js/ui.js"></script>
   <script src="../js/anuncio.js"></script>
 </body>
 

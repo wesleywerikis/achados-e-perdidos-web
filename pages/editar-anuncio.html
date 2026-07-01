@@ -1,38 +1,77 @@
-<!-- editar-anuncio.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <title>Editar Anúncio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editar Anúncio - Perdidos & Achados</title>
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-  <header><h1>Editar Anúncio</h1></header>
-  <main>
-    <form id="formEditar">
+  <header class="site-header">
+    <div class="header-container">
+      <a href="../index.html" class="site-brand" id="linkLogo">
+        <svg class="site-brand-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+        <span class="site-brand-text">Perdidos <span class="brand-amp">&</span> Achados</span>
+      </a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <nav id="menuNavegacao" class="site-nav" aria-label="Menu principal"></nav>
+    </div>
+  </header>
+
+  <main class="pagina-formulario">
+    <div class="form-cabecalho">
+      <h2>Editar Anúncio</h2>
+      <p class="form-subtitulo">Atualize as informações do seu anúncio.</p>
+    </div>
+
+    <p id="mensagemEditar" class="mensagem-feedback" hidden></p>
+    <p id="loadingEditar" class="loading">Carregando anúncio...</p>
+
+    <form id="formEditar" class="formulario" hidden novalidate>
       <input type="hidden" id="anuncioId">
-      
-      <label>Título:</label>
-      <input type="text" id="titulo" required>
 
-      <label>Descrição:</label>
-      <textarea id="descricao" required></textarea>
+      <div class="campo-grupo">
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" maxlength="120" required>
+      </div>
 
-      <label>Categoria:</label>
-      <select id="categoria" required>
-        <option value="Documento">Documento</option>
-        <option value="Eletrônico">Eletrônico</option>
-        <option value="Animal">Animal</option>
-        <option value="Outro">Outro</option>
-      </select>
+      <div class="campo-grupo">
+        <label for="descricao">Descrição</label>
+        <textarea id="descricao" rows="4" required></textarea>
+      </div>
 
-      <label>Local:</label>
-      <input type="text" id="local" required>
+      <div class="campo-grupo">
+        <label for="categoria">Categoria</label>
+        <select id="categoria" required>
+          <option value="Documento">Documento</option>
+          <option value="Eletrônico">Eletrônico</option>
+          <option value="Animal">Animal</option>
+          <option value="Outro">Outro</option>
+        </select>
+      </div>
 
-      <button type="submit">Salvar Alterações</button>
+      <div class="campo-grupo">
+        <label for="local">Local</label>
+        <input type="text" id="local" required>
+      </div>
+
+      <div class="form-acoes">
+        <a href="../index.html" class="btn-secundario-link">Cancelar</a>
+        <button type="submit" class="btn-primario">Salvar Alterações</button>
+      </div>
     </form>
   </main>
 
+  <script src="../js/ui.js"></script>
   <script src="../js/editar.js"></script>
 </body>
 </html>
